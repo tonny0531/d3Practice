@@ -18,6 +18,19 @@ export class StickerComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.dataService.getData();
     this.makeSticker();
+    const svg = d3.select('#test')
+    .attr('width',500)
+    .attr('height',500);
+    svg.append('g')
+    .attr('id','container')
+    .append('g')
+    .append('rect')
+    .attr('width',100)
+    .attr('height',100)
+    .attr('x',100)
+    .attr('y',100)
+    .attr('fill','blue');
+
   }
   log(this:any){
     console.log(this);

@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CBMapComponent } from './cbmap/cbmap.component';
 import { StickerComponent } from './sticker/sticker.component';
+import { ZoomComponent } from './zoom/zoom.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CBMapComponent,
-    StickerComponent
+    StickerComponent,
+    ZoomComponent
   ],
   imports: [
     BrowserModule,
