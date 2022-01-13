@@ -1,0 +1,17 @@
+svg {
+  width:calc(100% - 80px);
+  margin: 0 40px;
+  border: 1px black solid;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.justify-around{
+  justify-content: space-around;
+}

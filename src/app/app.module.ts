@@ -1,3 +1,4 @@
+import { SharedMaterialModule } from './sharedmodule/shared-material.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -6,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CBMapComponent } from './cbmap/cbmap.component';
 import { StickerComponent } from './sticker/sticker.component';
 import { ZoomComponent } from './zoom/zoom.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ZoomComponent } from './zoom/zoom.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SharedMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

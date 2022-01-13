@@ -1,5 +1,47 @@
 <svg></svg>
 <div></div>
-{{selectData | json}}
+<div *ngIf="selectData" style="max-width: 1240px; padding-left: 20px;padding-right: 20px; margin: auto;">
+  <H1 style="text-align: center;">{{selectData.EQPMainInfo.EQPId}}</H1>
+  <mat-accordion mu>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          MainInfo
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="d-flex justify-around">
+        <mat-form-field appearance="outline">
+          <mat-label>EqpId</mat-label>
+          <input matInput placeholder="EqpId" value="{{selectData?.EQPMainInfo?.EQPId}}" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>EqpStatus</mat-label>
+          <input matInput placeholder="EqpId" value="{{selectData?.EQPMainInfo?.EQPStatus}}" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>MesStatus</mat-label>
+          <input matInput placeholder="EqpId" value="{{selectData?.EQPMesInfo?.EQPStatus}}" readonly>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Duration (minute)</mat-label>
+          <input matInput placeholder="EqpId" value=60 readonly>
+        </mat-form-field>
+      </div>
+      <!-- <pre>{{selectData.EQPMainInfo | json}}</pre> -->
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          MesInfo
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pre>{{selectData.EQPMesInfo | json}}</pre>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <pre>{{selectData | json}}</pre>
+</div>
 <div></div>
 <!-- {{itemDatas| json}} -->
