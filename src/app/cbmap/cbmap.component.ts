@@ -65,7 +65,7 @@ export class CBMapComponent implements OnInit {
     container.append('g')
       .attr('id', 'itemGroup')
       .selectAll('g')
-      .data(Array.from(this.itemMap.values()), (d: any) => d.point.ItemId + d.detail.MergedStatus)
+      .data(Array.from(this.itemMap.values()), (d: any) => d.point.ItemId)
       .enter()
       .call(this.itemGenerator.bind(this), adaptLabelFontSize, clickEvent, sourceData, this.updateSelectData.bind(this))
   }
@@ -135,29 +135,65 @@ export class CBMapComponent implements OnInit {
     this.selectData = newData;
   }
   onUpdateDataClick(): void {
-    // let newData = JSON.parse(JSON.stringify(this.itemMap.get('DI3012J')));
     let newData = this.itemMap.get('DI3012J');
-    // newData = {...newData};
-    // newData.detail = {...newData.detail, MergedStatus: 'RUN'};
-    // newData.detail.MergedStatus = 'RUN';
-    console.log(newData);
+    newData = { ...newData };
+    newData.detail = { ...newData.detail, MergedStatus: 'RUN' };
+    newData.detail.MergedStatus = 'RUN';
     this.itemMap.set('DI3012J', newData);
-    console.log(this.itemMap.values());
     const itemGroups = this.svg.select('#container')
       .selectAll('#itemGroup')
       .selectAll('.item');
-    console.log(itemGroups
-      .data(Array.from(this.itemMap.values()), (d: any) => d.point.ItemId + d.detail.MergedStatus)
-      .exit()
-      .remove());
-    // itemGroups.selectAll('rect')
-    //   .data(temp, (d: any) => d.point.ItemId + d.detail.MergedStatus)
-    //   .attr('width', d => +d.point.Width)
-    //   .attr('height', d => +d.point.Height)
-    //   .attr('rx', 5)
-    //   .attr('class',d => d.point.ItemId)
-    //   .attr('fill', d => {
-    //     return this.colors[d.detail.MergedStatus as 'RUN' | 'CHK' | 'IDLE' | 'ALARM' | 'MBD' | 'READY' | 'PAUSE' | 'RPM' | 'WAIT'];
-    //   });
+    itemGroups.selectAll('rect')
+      .data(Array.from(this.itemMap.values()), (d: any) => d.point.ItemId)
+      .attr('width', d => +d.point.Width)
+      .attr('height', d => +d.point.Height)
+      .attr('rx', 5)
+      .attr('class', d => d.point.ItemId)
+      .attr('fill', d => {
+        return this.colors[d.detail.MergedStatus as 'RUN' | 'CHK' | 'IDLE' | 'ALARM' | 'MBD' | 'READY' | 'PAUSE' | 'RPM' | 'WAIT'];
+      });
+  }
+
+  onSearchRunStatusClick(): void {
+    const adaptLabelFontSize = this.adaptLabelFontSize;
+    let searchData = Array.from(this.itemMap.values()).filter(item => item.detail.MergedStatus == 'RUN');
+    const itemGroups = this.svg.select('#container')
+      .selectAll('#itemGroup')
+      .selectAll('.item');
+    const rects = itemGroups.selectAll('rect')
+      .data(searchData, (d: any) => d.point.ItemId);
+    rects
+      .attr('width', d => +d.point.Width)
+      .attr('height', d => +d.point.Height)
+      .attr('rx', 5)
+      .attr('class', d => d.point.ItemId)
+      .attr('fill', d => {
+        return this.colors[d.detail.MergedStatus as 'RUN' | 'CHK' | 'IDLE' | 'ALARM' | 'MBD' | 'READY' | 'PAUSE' | 'RPM' | 'WAIT'];
+      });
+    rects.exit().remove();
+
+    const texts = itemGroups.selectAll('text')
+      .data(searchData, (d: any) => d.point.ItemId);
+    texts
+      .text(d => d.point.ItemId)
+      .attr('text-anchor', 'middle')
+      .attr('dx', d => +d.point.Width / 2)
+      .attr('dy', d => +d.point.Height / 2);
+    texts.exit().remove();
+  }
+
+  onResetClick(): void {
+    const itemGroups = this.svg.select('#container')
+      .selectAll('#itemGroup')
+      .selectAll('.item');
+    itemGroups.selectAll('rect')
+      .data(Array.from(this.itemMap.values()), (d: any) => d.point.ItemId)
+      .attr('width', d => +d.point.Width)
+      .attr('height', d => +d.point.Height)
+      .attr('rx', 5)
+      .attr('class', d => d.point.ItemId)
+      .attr('fill', d => {
+        return this.colors[d.detail.MergedStatus as 'RUN' | 'CHK' | 'IDLE' | 'ALARM' | 'MBD' | 'READY' | 'PAUSE' | 'RPM' | 'WAIT'];
+      });
   }
 }

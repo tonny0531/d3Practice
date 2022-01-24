@@ -2,6 +2,7 @@
   <h1>Filter</h1>
 </div>
 <button (click)="onUpdateDataClick()">updateData</button>
+<button (click)="onSearchRunStatusClick()">findRunEqps</button>
 <svg></svg>
 <div></div>
 <div *ngIf="selectData" style="max-width: 1240px; padding-left: 20px;padding-right: 20px; margin: auto;">
@@ -33,7 +34,8 @@
           <mat-label>Duration (minute)</mat-label>
           <input matInput placeholder="EqpId" value=60 readonly>
         </mat-form-field>
-
+      </div>
+      <div class="d-flex justify-around">
         <mat-form-field appearance="outline">
           <mat-label>MergeStatus</mat-label>
           <input matInput placeholder="EqpId" value="{{selectData?.MergedStatus}}" readonly>
